@@ -56,11 +56,11 @@ repoList.addEventListener("click", function(e) {
         }
     });
 
-    
+    //async function to get specific repo information//
     const getRepoInfo= async function(repoName) {
         const specificRepo= await fetch (`https://api.github.com/repos/${username}/${repoName}`);
         const repoResponse= await specificRepo.json();
-        console.log(repoResponse);
+        console.log(repoResponse);        
 
         const fetchLanguages= await fetch (`https://api.github.com/repos/Jamie-WJ/github-repo-gallery/languages`);
         const languageData= await fetchLanguages.json();
@@ -69,20 +69,23 @@ repoList.addEventListener("click", function(e) {
         const languages= [];
         for (const language in languageData) {
             languages.push(language);
-            console.log(languages);
-        }
+        }  
+        showRepoInfo(repoResponse, languages);
+
     };
 
-    const showRepoInfo= function(repoInfo, languages) {
+    const showRepoInfo= function(repoResponse, languages) {
         individualRepoData.innerHTML="";
-        const div = document.createElement("div");
-        div.innerHTML=`
-        <h3>Name: ${repoInfo.name}</h3>
-        <p>Description: ${repoInfo.description}</p>
-        <p>Default Branch: ${repoInfo.default_branch}</p>
-        <p>Languages: ${languages.join(", ")}</p>
-        <a class="visit" href="${repInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`;
-        individualRepoData.append("div")
         individualRepoData.classList.remove("hide");
         allRepos.classList.add("hide");
-    }
+
+        const div = document.createElement("div");
+        div.innerHTML=`
+        <h3>Name: ${repoResponse.name}</h3>
+        <p>Description: ${repoResponse.description}</p>
+        <p>Default Branch: ${repoResponse.default_branch}</p>
+        <p>Languages: ${languages.join(", ")}</p>
+        <a class="visit" href="${repoResponse.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`;
+        
+        individualRepoData.append(div);
+    };
