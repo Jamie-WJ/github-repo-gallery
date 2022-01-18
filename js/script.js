@@ -46,7 +46,7 @@ const repoInfo= function (repos){
         repoItem.classList.add("repo");
         repoItem.innerHTML=`<h3>${repo.name}</h3>`;
         repoList.append(repoItem);
-    }
+    } 
 };
 
 repoList.addEventListener("click", function(e) {
@@ -72,3 +72,17 @@ repoList.addEventListener("click", function(e) {
             console.log(languages);
         }
     };
+
+    const showRepoInfo= function(repoInfo, languages) {
+        individualRepoData.innerHTML="";
+        const div = document.createElement("div");
+        div.innerHTML=`
+        <h3>Name: ${repoInfo.name}</h3>
+        <p>Description: ${repoInfo.description}</p>
+        <p>Default Branch: ${repoInfo.default_branch}</p>
+        <p>Languages: ${languages.join(", ")}</p>
+        <a class="visit" href="${repInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`;
+        individualRepoData.append("div")
+        individualRepoData.classList.remove("hide");
+        allRepos.classList.add("hide");
+    }
