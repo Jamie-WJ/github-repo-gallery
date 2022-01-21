@@ -44,7 +44,9 @@ const gitHubRepos = async function(){
 
 };
 
+//This function displays all of my repos.//
 const repoInfo= function (repos){
+    filterInput.classList.remove("hide");
     for (const repo of repos) {
         const repoItem= document.createElement("li");
         repoItem.classList.add("repo");
@@ -77,7 +79,7 @@ repoList.addEventListener("click", function(e) {
         showRepoInfo(repoResponse, languages);
 
     };
-
+    //This function is responsible for displaying the individual repo info.//
     const showRepoInfo= function(repoResponse, languages) {
         individualRepoData.innerHTML="";
         individualRepoData.classList.remove("hide");
