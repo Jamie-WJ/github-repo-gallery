@@ -1,8 +1,12 @@
-const overview= document.querySelector(".overview"); //div where profile information will appear//
+
+const overview= document.querySelector(".overview"); //Div where profile information will appear.//
 const username= "Jamie-WJ";
-const repoList= document.querySelector(".repo-list");//select the ul repo list//
-const allRepos= document.querySelector(".repos"); //where all repo information appears//
-const individualRepoData= document.querySelector(".repo-data"); //where individual repo data will appear//
+const repoList= document.querySelector(".repo-list");//Selects the ul repo list.//
+const allRepos= document.querySelector(".repos"); //Where all repo information appears.//
+const individualRepoData= document.querySelector(".repo-data"); //Where individual repo data will appear.//
+const backToRepo=document.querySelector('.view-repos');//The button will return the user back to the repo gallery.//
+const filterInput=document.querySelector('.filter-repos');//Selects the "Search by name" placeholder.//
+
 
 const gitHubInfo= async function (){
     const userInfo= await fetch (`https://api.github.com/users/${username}`);
@@ -78,6 +82,8 @@ repoList.addEventListener("click", function(e) {
         individualRepoData.innerHTML="";
         individualRepoData.classList.remove("hide");
         allRepos.classList.add("hide");
+        backToRepo.classList.remove("hide");
+
 
         const div = document.createElement("div");
         div.innerHTML=`
@@ -89,3 +95,9 @@ repoList.addEventListener("click", function(e) {
         
         individualRepoData.append(div);
     };
+
+    backToRepo.addEventListener("click", function(){
+       allRepos.classList.remove("hide");
+       individualRepoData.classList.add("hide");
+       backToRepo.classList.add("hide");
+    });
