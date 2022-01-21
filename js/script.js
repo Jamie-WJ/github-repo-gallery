@@ -66,11 +66,9 @@ repoList.addEventListener("click", function(e) {
     const getRepoInfo= async function(repoName) {
         const specificRepo= await fetch (`https://api.github.com/repos/${username}/${repoName}`);
         const repoResponse= await specificRepo.json();
-        console.log(repoResponse);        
 
         const fetchLanguages= await fetch (`https://api.github.com/repos/Jamie-WJ/github-repo-gallery/languages`);
         const languageData= await fetchLanguages.json();
-        console.log(languageData);
 
         const languages= [];
         for (const language in languageData) {
@@ -102,4 +100,20 @@ repoList.addEventListener("click", function(e) {
        allRepos.classList.remove("hide");
        individualRepoData.classList.add("hide");
        backToRepo.classList.add("hide");
+    });
+
+    //Dynamic search//
+    filterInput.addEventListener("input", function(e){
+        const searchText=e.target.value;
+        const repos= document.querySelectorAll(".repo");
+        const searchTextLower=  searchText.toLowerCase(); 
+
+        for(const repo of repos){
+            const repoLowercase= repo.innerText.toLowerCase();
+            if(repoLowercase.includes(searchTextLower)){
+                repo.classList.remove("hide");
+            }else{
+                repo.classList.add("hide");
+            }
+        }
     });
